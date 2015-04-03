@@ -3,12 +3,12 @@ apply plugin: 'com.android.application'
 android {
     signingConfigs {
     }
-    compileSdkVersion 19
-    buildToolsVersion '19.1.0'
+    compileSdkVersion 20
+    buildToolsVersion '20.0.0'
     defaultConfig {
         applicationId "com.op.wunderbutton"
         minSdkVersion 15
-        targetSdkVersion 19
+        targetSdkVersion 20
         versionCode 1
         versionName "1.0"
     }
@@ -22,6 +22,7 @@ android {
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
+    provided 'org.projectlombok:lombok:1.12.6'
     compile 'com.google.android.gms:play-services:7.0.0'
-    compile 'com.android.support:appcompat-v7:19.1.0'
+    compile 'com.android.support:appcompat-v7:20.0.0'
 }
