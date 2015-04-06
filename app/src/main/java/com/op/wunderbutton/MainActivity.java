@@ -8,6 +8,17 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
+
+import com.op.wunderbutton.oauth2.WebApiHelper;
+import com.op.wunderbutton.requests.GetFeedlyCodeRequest;
+import com.op.wunderbutton.requests.RetrieveOAuth2TokenRequest;
+
+import org.json.JSONObject;
+
+import java.util.HashMap;
 
 import lombok.extern.java.Log;
 
@@ -49,6 +60,8 @@ public class MainActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
+
+
     /**
      * A placeholder fragment containing a simple view.
      */
@@ -61,6 +74,55 @@ public class MainActivity extends ActionBarActivity {
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_main, container, false);
+            WebView description = (WebView)rootView.findViewById(R.id.description);
+            description.setScrollBarStyle(WebView.SCROLLBARS_OUTSIDE_OVERLAY);
+            description.getSettings().setJavaScriptEnabled(true);
+            description.getSettings().setDefaultTextEncodingName("utf-8");
+            description.getSettings().setLoadWithOverviewMode(true);
+            description.getSettings().setSupportZoom(true);
+            description.getSettings().setBuiltInZoomControls(true);
+            description.requestFocus(View.FOCUS_DOWN);
+            description.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.NORMAL);
+            GetFeedlyCodeRequest request = new GetFeedlyCodeRequest(getActivity());
+
+               /* WebViewClient must be set BEFORE calling loadUrl! */
+            description.setWebViewClient(new WebViewClient() {
+
+                @Override
+                public void onPageFinished(WebView view, String url)  {
+                    if (url.contains("localhost")) {
+                        try {
+                            if (url.contains("code=")) {
+                                String code = url.substring(url.indexOf("code=")+5);
+                                log.info("code: " + code);
+                                WebApiHelper.register(view.getContext());
+                                WebApiHelper.getInstance().saveToSharedPreferences(view.getContext(), R.string.feedly_api_refresh_token, code);
+
+                                RetrieveOAuth2TokenRequest oAuth2TokenRequest = new RetrieveOAuth2TokenRequest(view.getContext(),code);
+                                HashMap<String, String> params = new HashMap<String, String>();
+                                params.put("client_id", view.getContext().getResources().getString(R.string.feedly_client_id));
+                                params.put("client_secret", view.getContext().getResources().getString(R.string.feedly_client_secret));
+                                params.put("code", code);
+
+                                WebApiHelper.getInstance().refreshAccessToken(new JSONObject(params));
+
+                                //CHANGE VIEW
+                            } else if (url.indexOf("error=")!=-1) {
+                            }
+
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                    System.out.println("onPageFinished : " + url);
+
+                }
+
+            });
+
+
+            description.loadUrl(request.getEncodedUrl());//
             return rootView;
         }
     }

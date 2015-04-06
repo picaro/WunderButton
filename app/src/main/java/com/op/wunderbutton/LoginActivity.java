@@ -24,13 +24,24 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+
+import lombok.extern.java.Log;
 
 
 /**
  * A login screen that offers login via email/password.
  */
+@Log
 public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
 
     /**
@@ -263,9 +274,33 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
             try {
                 // Simulate network access.
                 Thread.sleep(2000);
-
+                String content = "";
                 //!!!!
+                URL url = null;
+                try {
+                    url = new URL("https://www.wunderlist.com/oauth/authorize?client_id=c0e01b47d2550f28465d&redirect_uri=http://google.com&state=3434");
+                    //https://www.google.pl/?state=3434&gws_rd=cr,ssl&ei=_3shVdeUDIqZsgHvtIGYAQ
+                    HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
 
+
+                    urlConnection.setDoOutput(true);
+                    urlConnection.setRequestMethod("POST");
+                    urlConnection.setFixedLengthStreamingMode(content.getBytes("UTF-8").length);
+                    urlConnection.connect();
+                    //POST the contents
+                    OutputStream out = new BufferedOutputStream(urlConnection.getOutputStream());
+                    //writeStream(out, content.getBytes("UTF-8"));
+
+                    //read the input stream for the response
+                    InputStream in = new BufferedInputStream(urlConnection.getInputStream());
+
+                    return true;
+
+                } catch (MalformedURLException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
 
 
             } catch (InterruptedException e) {
