@@ -6,9 +6,9 @@ import com.op.wunderbutton.oauth2.WebApiRequest;
 import com.op.wunderbutton.R;
 
 
-public class GetFeedlyCodeRequest extends WebApiRequest
+public class GetCodeRequest extends WebApiRequest
 {
-	public GetFeedlyCodeRequest(Context context)
+	public GetCodeRequest(Context context)
 	{
         super(context.getResources().getString(R.string.feedly_api_url), "GET", context);
 		setMethod(R.string.feedly_api_authenticate_user);

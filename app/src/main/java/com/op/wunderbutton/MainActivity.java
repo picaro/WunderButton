@@ -1,5 +1,6 @@
 package com.op.wunderbutton;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBarActivity;
@@ -13,7 +14,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import com.op.wunderbutton.oauth2.WebApiHelper;
-import com.op.wunderbutton.requests.GetFeedlyCodeRequest;
+import com.op.wunderbutton.requests.GetCodeRequest;
 import com.op.wunderbutton.requests.RetrieveOAuth2TokenRequest;
 
 import org.json.JSONObject;
@@ -83,7 +84,7 @@ public class MainActivity extends ActionBarActivity {
             description.getSettings().setBuiltInZoomControls(true);
             description.requestFocus(View.FOCUS_DOWN);
             description.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.NORMAL);
-            GetFeedlyCodeRequest request = new GetFeedlyCodeRequest(getActivity());
+            GetCodeRequest request = new GetCodeRequest(getActivity());
 
                /* WebViewClient must be set BEFORE calling loadUrl! */
             description.setWebViewClient(new WebViewClient() {
@@ -107,6 +108,9 @@ public class MainActivity extends ActionBarActivity {
                                 WebApiHelper.getInstance().refreshAccessToken(new JSONObject(params));
 
                                 //CHANGE VIEW
+                                Intent i = new Intent(view.getContext().getApplicationContext(), LoginActivity.class);
+                                i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                view.getContext().getApplicationContext().startActivity(i);
                             } else if (url.indexOf("error=")!=-1) {
                             }
 

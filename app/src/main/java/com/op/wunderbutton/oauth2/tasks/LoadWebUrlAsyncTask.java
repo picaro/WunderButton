@@ -53,6 +53,11 @@ public class LoadWebUrlAsyncTask extends AsyncTask<WebApiRequest, Void, String>
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 			conn.setRequestMethod(request[0].getRequestMethod());
 
+            if (!TextUtils.isEmpty(request[0].getOAuthToken()))
+            {
+                conn.setRequestProperty("Authorization", "OAuth " + request[0].getOAuthToken());
+            }
+
             if (request[0].getRequestMethod().equals("POST")) {
                 conn.setDoOutput(true);
                 conn.setRequestProperty("Content-Type", "application/json");
@@ -67,10 +72,6 @@ public class LoadWebUrlAsyncTask extends AsyncTask<WebApiRequest, Void, String>
 
             }
 
-            if (!TextUtils.isEmpty(request[0].getOAuthToken()))
-			{
-				conn.setRequestProperty("Authorization", "OAuth " + request[0].getOAuthToken());
-			}
 			return readStream(conn.getInputStream());
 		}
 		catch (MalformedURLException e)
