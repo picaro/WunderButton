@@ -1,7 +1,6 @@
 package com.op.wunderbutton.oauth2.tasks;
 
 import android.os.AsyncTask;
-import android.text.TextUtils;
 import android.util.Log;
 
 import com.op.wunderbutton.oauth2.WebApiRequest;
@@ -53,17 +52,23 @@ public class LoadWebUrlAsyncTask extends AsyncTask<WebApiRequest, Void, String>
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 			conn.setRequestMethod(request[0].getRequestMethod());
 
-            if (!TextUtils.isEmpty(request[0].getOAuthToken()))
-            {
-                conn.setRequestProperty("Authorization", "OAuth " + request[0].getOAuthToken());
-            }
 
             if (request[0].getRequestMethod().equals("POST")) {
+                conn.setDoInput(true);
                 conn.setDoOutput(true);
+//                if (!TextUtils.isEmpty(request[0].getOAuthToken()))
+//                {
+                    conn.setRequestProperty("X-Access-Token", request[0].getOAuthToken());
+                    conn.setRequestProperty("X-Client-ID", "c0e01b47d2550f28465d");
+//                }
                 conn.setRequestProperty("Content-Type", "application/json");
                 conn.setRequestProperty("Accept", "application/json");
+
                 JSONObject jsonObject = request[0].getJsonObject();
                 OutputStreamWriter wr= new OutputStreamWriter(conn.getOutputStream());
+
+                Log.i("TAG", ">>>" + jsonObject.toString() );
+
                 wr.write(jsonObject.toString());
                 wr.flush();
 

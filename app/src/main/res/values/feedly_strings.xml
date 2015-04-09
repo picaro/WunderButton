@@ -3,7 +3,8 @@
 	<string name="feedly_client_id">c0e01b47d2550f28465d</string>
 	<string name="feedly_client_secret">e5b25594c2b696a9a59794ba99a50551aa366a95224c4eab8b77d8dfc917</string>
 	<string name="feedly_redirect_uri">http://localhost:9000</string>
-	<string name="feedly_api_url">https://www.wunderlist.com</string>
+	<string name="feedly_api_url">https://a.wunderlist.com/api</string>
+    <string name="feedly_api_auth">https://www.wunderlist.com</string>
 
 	<!-- do not change anything below this line -->
 	<string name="feedly_api_auth_header">Authorization</string>
@@ -23,7 +24,7 @@
 	<string name="feedly_api_param_grant_type">grant_type</string>
 	<string name="feedly_api_param_grant_type_default_val">authorization_code</string>
 	
-	<string name="feedly_api_get_subscriptions">/v3/subscriptions</string>
+	<string name="feedly_api_get_subscriptions">/v1/tasks</string>
 	
 	<string name="feedly_api_access_token">access_token</string>
 	<string name="feedly_api_refresh_token">code</string>
@@ -31,4 +32,5 @@
 	<string name="feedly_api_user_id">id</string>
 	
 	<string name="feedly_api_timestamp">timestamp</string>
+    <string name="prod1">Prod1</string>
 </resources>

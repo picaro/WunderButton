@@ -39,8 +39,8 @@ public abstract class WebApiRequest
 	{
 		return getSharedPreferenceValue(R.string.feedly_api_access_token);
 	}
-	
-	private String getSharedPreferenceValue(int resourceKeyId)
+
+    public String getSharedPreferenceValue(int resourceKeyId)
 	{
 		SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
 		String preferenceValue = preferences.getString(context.getResources().getString(resourceKeyId), "");

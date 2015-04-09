@@ -107,8 +107,9 @@ public class MainActivity extends ActionBarActivity {
 
                                 WebApiHelper.getInstance().refreshAccessToken(new JSONObject(params));
 
+
                                 //CHANGE VIEW
-                                Intent i = new Intent(view.getContext().getApplicationContext(), LoginActivity.class);
+                                Intent i = new Intent(view.getContext().getApplicationContext(), AddProductActivity.class);
                                 i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                 view.getContext().getApplicationContext().startActivity(i);
                             } else if (url.indexOf("error=")!=-1) {

@@ -10,7 +10,7 @@ public class GetCodeRequest extends WebApiRequest
 {
 	public GetCodeRequest(Context context)
 	{
-        super(context.getResources().getString(R.string.feedly_api_url), "GET", context);
+        super(context.getResources().getString(R.string.feedly_api_auth), "GET", context);
 		setMethod(R.string.feedly_api_authenticate_user);
 		addParam(R.string.feedly_api_param_response_type, R.string.feedly_api_param_response_type_default_val);
 		addParam(R.string.feedly_api_param_client_id, R.string.feedly_client_id);

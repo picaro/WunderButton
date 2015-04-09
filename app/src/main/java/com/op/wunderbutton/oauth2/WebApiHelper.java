@@ -54,13 +54,13 @@ public class WebApiHelper
 		{
 			return false;
 		}
-		
+
 		String code = getCodeFromUrl(url);
 		if (code == null)
 		{
 			return false;
 		}
-		
+
 		LoadWebUrlAsyncTask getFeedlyAccessTokenAsyncTask = new LoadWebUrlAsyncTask();
 		getFeedlyAccessTokenAsyncTask.setOnWebRequestCallback(callback);
 		WebApiRequest request = new RetrieveOAuth2TokenRequest(context, code);
@@ -140,11 +140,11 @@ public class WebApiHelper
 		{
 			JSONObject json = new JSONObject(response);
 			String accessToken = json.getString(getResourceString(R.string.feedly_api_access_token));
-//			String userId = json.getString(getResourceString(R.string.feedly_api_user_id));
+			String clientId = getResourceString(R.string.feedly_client_id);
 //			String expiresIn = json.getString(getResourceString(R.string.feedly_api_expires_in));
 //			String timestamp = Long.toString(System.currentTimeMillis()/1000);
 			saveToSharedPreferences(R.string.feedly_api_access_token, accessToken);
-//			saveToSharedPreferences(R.string.feedly_api_user_id, userId);
+			saveToSharedPreferences(R.string.feedly_api_param_client_id, clientId);
 //			saveToSharedPreferences(R.string.feedly_api_expires_in, expiresIn);
 //			saveToSharedPreferences(R.string.feedly_api_timestamp, timestamp);
 			return true;
@@ -156,7 +156,6 @@ public class WebApiHelper
 		return false;
 	}
 
-	// TODO: error checking here for invalid json, connection issues, invalid auth token, 404, etc
 	public boolean saveFeedlyTokensFromResponseToPreferences(String response)
 	{
 		try

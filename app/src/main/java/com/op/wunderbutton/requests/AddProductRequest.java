@@ -5,9 +5,11 @@ import android.content.Context;
 import com.op.wunderbutton.R;
 import com.op.wunderbutton.oauth2.WebApiRequest;
 
-public class RetrieveSubscriptionsRequest extends WebApiRequest
+import org.json.JSONObject;
+
+public class AddProductRequest extends WebApiRequest
 {
-	public RetrieveSubscriptionsRequest(Context context)
+	public AddProductRequest(Context context, JSONObject jsonObject)
 	{
         //145872426 prod
         /**
@@ -19,7 +21,8 @@ public class RetrieveSubscriptionsRequest extends WebApiRequest
          "starred": false
          }
          */
-		super(context.getResources().getString(R.string.feedly_api_url), "GET", context);
+		super(context.getResources().getString(R.string.feedly_api_url), "POST", context);
 		setMethod(R.string.feedly_api_get_subscriptions);
+        setJsonObject(jsonObject);
 	}
 }
