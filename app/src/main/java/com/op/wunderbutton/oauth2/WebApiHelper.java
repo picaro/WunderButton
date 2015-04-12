@@ -50,7 +50,7 @@ public class WebApiHelper
 	
 	public boolean handleFeedlyAuthenticationResponse(String url, OnApiRequestListener callback, JSONObject jsonObject)
 	{
-		if (!url.startsWith(getResourceString(R.string.feedly_redirect_uri)))
+		if (!url.startsWith(getResourceString(R.string.wunderlist_redirect_uri)))
 		{
 			return false;
 		}
@@ -140,7 +140,7 @@ public class WebApiHelper
 		{
 			JSONObject json = new JSONObject(response);
 			String accessToken = json.getString(getResourceString(R.string.feedly_api_access_token));
-			String clientId = getResourceString(R.string.feedly_client_id);
+			String clientId = getResourceString(R.string.wunderlist_client_id);
 //			String expiresIn = json.getString(getResourceString(R.string.feedly_api_expires_in));
 //			String timestamp = Long.toString(System.currentTimeMillis()/1000);
 			saveToSharedPreferences(R.string.feedly_api_access_token, accessToken);
@@ -202,7 +202,7 @@ public class WebApiHelper
     	try
     	{
 			List<NameValuePair> params = URLEncodedUtils.parse(new URI(url), "UTF-8");
-			String paramName = getResourceString(R.string.feedly_api_param_code);
+			String paramName = getResourceString(R.string.wunderlist_param_code);
 	    	for (NameValuePair param : params)
 	    	{
 	    		if (param.getName().equals(paramName))

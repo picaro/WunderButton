@@ -10,11 +10,10 @@ public class RefreshTokenRequest extends WebApiRequest
 {
 	public RefreshTokenRequest(Context context, String refreshToken)
 	{
-		super(context.getResources().getString(R.string.feedly_api_auth), "POST", context);
+		super(context.getResources().getString(R.string.wunderlist_api_auth), "POST", context);
         setMethod(R.string.feedly_api_exchange_code_for_tokens);
-        addParam(R.string.feedly_api_param_client_id, R.string.feedly_client_id);
-        addParam(R.string.feedly_api_param_code, refreshToken);
-        addParam(R.string.feedly_api_param_client_secret, R.string.feedly_client_secret);
-
+        addParam(R.string.feedly_api_param_client_id, R.string.wunderlist_client_id);
+        addParam(R.string.wunderlist_param_code, refreshToken);
+        addParam(R.string.feedly_api_param_client_secret, R.string.wunderlist_client_secret);
 	}
 }

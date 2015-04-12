@@ -16,19 +16,7 @@
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-
             </LinearLayout>
-
-            <!--<ImageButton-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:id="@+id/imageButton"-->
-                <!--android:contentDescription="@string/prod1"-->
-                <!--android:src="@drawable/common_signin_btn_icon_pressed_light"-->
-                <!--android:minHeight="77dp"-->
-                <!--android:minWidth="77dp"-->
-                <!--android:clickable="true" />-->
-
     </ScrollView>
 
 

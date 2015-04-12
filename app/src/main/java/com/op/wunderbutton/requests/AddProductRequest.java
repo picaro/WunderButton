@@ -11,18 +11,8 @@ public class AddProductRequest extends WebApiRequest
 {
 	public AddProductRequest(Context context, JSONObject jsonObject)
 	{
-        //145872426 prod
-        /**
-         * {
-         "list_id": 145872426,
-         "title": "Toilet Paper",
-         "assignee_id": 13724835,
-         "completed": true,
-         "starred": false
-         }
-         */
-		super(context.getResources().getString(R.string.feedly_api_url), "POST", context);
-		setMethod(R.string.feedly_api_get_subscriptions);
+		super(context.getResources().getString(R.string.wunderlist_api_url), "POST", context);
+		setMethod(R.string.wunderlist_api_tasks);
         setJsonObject(jsonObject);
 	}
 }

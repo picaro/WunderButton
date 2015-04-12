@@ -95,14 +95,13 @@ public class MainActivity extends ActionBarActivity {
                         try {
                             if (url.contains("code=")) {
                                 String code = url.substring(url.indexOf("code=")+5);
-                                log.info("code: " + code);
                                 WebApiHelper.register(view.getContext());
                                 WebApiHelper.getInstance().saveToSharedPreferences(view.getContext(), R.string.feedly_api_refresh_token, code);
 
                                 RetrieveOAuth2TokenRequest oAuth2TokenRequest = new RetrieveOAuth2TokenRequest(view.getContext(),code);
                                 HashMap<String, String> params = new HashMap<String, String>();
-                                params.put("client_id", view.getContext().getResources().getString(R.string.feedly_client_id));
-                                params.put("client_secret", view.getContext().getResources().getString(R.string.feedly_client_secret));
+                                params.put("client_id", view.getContext().getResources().getString(R.string.wunderlist_client_id));
+                                params.put("client_secret", view.getContext().getResources().getString(R.string.wunderlist_client_secret));
                                 params.put("code", code);
 
                                 WebApiHelper.getInstance().refreshAccessToken(new JSONObject(params));
@@ -113,6 +112,7 @@ public class MainActivity extends ActionBarActivity {
                                 i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                 view.getContext().getApplicationContext().startActivity(i);
                             } else if (url.indexOf("error=")!=-1) {
+                                log.info("errir in url:" + url);
                             }
 
                         } catch (Exception e) {
