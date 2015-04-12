@@ -1,0 +1,20 @@
+package com.op.wunderbutton.tools;
+
+import com.google.gson.Gson;
+
+/**
+ * Created by Alex on 12.04.2015.
+ */
+public class Constants {
+
+    public static Gson gson = new Gson();
+
+    public static final String POST = "POST";
+    public static final String GET = "GET" ;
+    public static final String STARRED = "starred";
+    public static final String COMPLETED = "completed";
+    public static final String TITLE = "title";
+    public static final String LIST_ID = "list_id";
+    public static final String LOCALHOST = "localhost";
+    public static final String CODE_EQ = "code=";
+}

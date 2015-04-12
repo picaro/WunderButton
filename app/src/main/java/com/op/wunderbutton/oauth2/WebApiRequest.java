@@ -6,8 +6,10 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
 import com.op.wunderbutton.R;
+import com.op.wunderbutton.tools.Constants;
 
 import org.apache.http.NameValuePair;
+import org.apache.http.protocol.HTTP;
 import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
@@ -20,7 +22,7 @@ import lombok.Setter;
 
 public abstract class WebApiRequest
 {
-	private String apiUrl;
+    private String apiUrl;
 	private String apiMethod;
 	private List<NameValuePair> params;
 	private Context context;
@@ -124,7 +126,7 @@ public abstract class WebApiRequest
 	{
 		StringBuilder sb = new StringBuilder(apiUrl);
 
-        if (requestMethod.equals("POST")) {
+        if (requestMethod.equals(Constants.POST)) {
             return apiUrl + apiMethod;
         }
 		
@@ -149,8 +151,8 @@ public abstract class WebApiRequest
 		{
 			try
 			{
-				String encodedName = URLEncoder.encode(nvp.getName(), "UTF-8");
-				String encodedValue = URLEncoder.encode(nvp.getValue(), "UTF-8");
+				String encodedName = URLEncoder.encode(nvp.getName(), HTTP.UTF_8);
+				String encodedValue = URLEncoder.encode(nvp.getValue(), HTTP.UTF_8);
 				sb.append(encodedName).append("=").append(encodedValue).append("&");
 			}
 			catch (UnsupportedEncodingException e)

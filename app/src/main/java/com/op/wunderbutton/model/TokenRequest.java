@@ -1,13 +1,16 @@
 package com.op.wunderbutton.model;
 
 import com.google.gson.annotations.SerializedName;
+
+import java.io.Serializable;
+
 import lombok.Data;
 
 /**
  * Created by Alex on 06.04.2015.
  */
-@Data
-public class TokenRequest {
+@Data //AllArgsConstructor
+public class TokenRequest implements Serializable {
 
     @SerializedName("client_id")
     private String client_id;

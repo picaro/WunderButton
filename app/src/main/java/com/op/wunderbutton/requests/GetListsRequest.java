@@ -4,15 +4,13 @@ import android.content.Context;
 
 import com.op.wunderbutton.R;
 import com.op.wunderbutton.oauth2.WebApiRequest;
-
-import org.json.JSONObject;
+import com.op.wunderbutton.tools.Constants;
 
 public class GetListsRequest extends WebApiRequest
 {
-	public GetListsRequest(Context context, JSONObject jsonObject)
+	public GetListsRequest(Context context)
 	{
-		super(context.getResources().getString(R.string.wunderlist_api_url), "GET", context);
+		super(context.getResources().getString(R.string.wunderlist_api_url), Constants.GET, context);
 		setMethod(R.string.wunderlist_api_lists);
-        setJsonObject(jsonObject);
-	}
+    }
 }

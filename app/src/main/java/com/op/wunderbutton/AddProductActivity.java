@@ -11,6 +11,7 @@ import android.widget.Toast;
 import com.op.wunderbutton.oauth2.WebApiRequest;
 import com.op.wunderbutton.oauth2.tasks.LoadWebUrlAsyncTask;
 import com.op.wunderbutton.requests.AddProductRequest;
+import com.op.wunderbutton.tools.Constants;
 
 import org.json.JSONObject;
 
@@ -66,10 +67,10 @@ public class AddProductActivity extends Activity {
      */
     public void sendAddProductRequest(String title) {
         HashMap params2 = new HashMap();
-        params2.put("list_id", 145872426);
-        params2.put("title", title);
-        params2.put("completed", false);
-        params2.put("starred", false);
+        params2.put(Constants.LIST_ID, 145872426);
+        params2.put(Constants.TITLE, title);
+        params2.put(Constants.COMPLETED, false);
+        params2.put(Constants.STARRED, false);
 
         LoadWebUrlAsyncTask getFeedlyAccessTokenAsyncTask = new LoadWebUrlAsyncTask();
         WebApiRequest request = new AddProductRequest(this.getApplicationContext(), new JSONObject(params2));

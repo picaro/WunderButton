@@ -1,6 +1,5 @@
 package com.op.wunderbutton;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBarActivity;
@@ -13,13 +12,20 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
+import com.google.gson.reflect.TypeToken;
+import com.op.wunderbutton.model.TokenRequest;
+import com.op.wunderbutton.model.WList;
 import com.op.wunderbutton.oauth2.WebApiHelper;
+import com.op.wunderbutton.oauth2.tasks.LoadWebUrlAsyncTask;
+import com.op.wunderbutton.oauth2.tasks.OnApiRequestListener;
 import com.op.wunderbutton.requests.GetCodeRequest;
-import com.op.wunderbutton.requests.RetrieveOAuth2TokenRequest;
+import com.op.wunderbutton.requests.GetListsRequest;
+import com.op.wunderbutton.tools.Constants;
 
+import org.apache.http.protocol.HTTP;
 import org.json.JSONObject;
 
-import java.util.HashMap;
+import java.util.ArrayList;
 
 import lombok.extern.java.Log;
 
@@ -78,7 +84,7 @@ public class MainActivity extends ActionBarActivity {
             WebView description = (WebView)rootView.findViewById(R.id.description);
             description.setScrollBarStyle(WebView.SCROLLBARS_OUTSIDE_OVERLAY);
             description.getSettings().setJavaScriptEnabled(true);
-            description.getSettings().setDefaultTextEncodingName("utf-8");
+            description.getSettings().setDefaultTextEncodingName(HTTP.UTF_8);
             description.getSettings().setLoadWithOverviewMode(true);
             description.getSettings().setSupportZoom(true);
             description.getSettings().setBuiltInZoomControls(true);
@@ -91,28 +97,70 @@ public class MainActivity extends ActionBarActivity {
 
                 @Override
                 public void onPageFinished(WebView view, String url)  {
-                    if (url.contains("localhost")) {
+
+                    OnApiRequestListener requestListener = new OnApiRequestListener() {
+
+                        @Override
+                        public void onStartRequest()
+                        {
+                            // TODO Auto-generated method stub
+
+                        }
+
+                        @Override
+                        public void onFinishRequest(String response)
+                        {
+                            log.info("FINISHED +" + response);
+                            ArrayList<WList> list = Constants.gson.fromJson(response,
+                                    new TypeToken<ArrayList<WList>>() {}.getType());
+
+//                            Intent i = new Intent(view.getContext().getApplicationContext(), AddProductActivity.class);
+//                            i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                            view.getContext().getApplicationContext().startActivity(i);
+
+                            // saveFeedlyRefreshTokenFromResponseToPreferences(response);
+                        }
+
+                        @Override
+                        public void onException(Exception ex)
+                        {
+                            // TODO Auto-generated method stub
+
+                        }
+                    };
+
+                    if (url.contains(Constants.LOCALHOST)) {
                         try {
-                            if (url.contains("code=")) {
-                                String code = url.substring(url.indexOf("code=")+5);
+                            if (url.contains(Constants.CODE_EQ)) {
+                                String code = url.substring(url.indexOf(Constants.CODE_EQ)+5);
                                 WebApiHelper.register(view.getContext());
                                 WebApiHelper.getInstance().saveToSharedPreferences(view.getContext(), R.string.feedly_api_refresh_token, code);
 
-                                RetrieveOAuth2TokenRequest oAuth2TokenRequest = new RetrieveOAuth2TokenRequest(view.getContext(),code);
-                                HashMap<String, String> params = new HashMap<String, String>();
-                                params.put("client_id", view.getContext().getResources().getString(R.string.wunderlist_client_id));
-                                params.put("client_secret", view.getContext().getResources().getString(R.string.wunderlist_client_secret));
-                                params.put("code", code);
+                                TokenRequest tokenRequest = new TokenRequest();
+                                tokenRequest.setClient_id(view.getContext().getResources().getString(R.string.wunderlist_client_id));
+                                tokenRequest.setCode(code);
+                                tokenRequest.setClient_secret(view.getContext().getResources().getString(R.string.wunderlist_client_secret));
 
-                                WebApiHelper.getInstance().refreshAccessToken(new JSONObject(params));
+//                                HashMap<String, String> params = new HashMap<String, String>();
+//                                params.put("client_id", view.getContext().getResources().getString(R.string.wunderlist_client_id));
+//                                params.put("client_secret", view.getContext().getResources().getString(R.string.wunderlist_client_secret));
+//                                params.put("code", code);
+//                                ;
+                                WebApiHelper.getInstance().refreshAccessToken(new JSONObject(Constants.gson.toJson(tokenRequest)));
+
+                                WList wList = new WList();
+                                LoadWebUrlAsyncTask task = new LoadWebUrlAsyncTask();
+                                GetListsRequest request = new GetListsRequest(view.getContext());
+                                task.execute(request);
+                                task.setOnWebRequestCallback(requestListener);
 
 
                                 //CHANGE VIEW
-                                Intent i = new Intent(view.getContext().getApplicationContext(), AddProductActivity.class);
-                                i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                view.getContext().getApplicationContext().startActivity(i);
+//                                Intent i = new Intent(view.getContext().getApplicationContext(), AddProductActivity.class);
+//                                i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                                view.getContext().getApplicationContext().startActivity(i);
                             } else if (url.indexOf("error=")!=-1) {
-                                log.info("errir in url:" + url);
+                                log.info("error in url:" + url);
                             }
 
                         } catch (Exception e) {
@@ -120,7 +168,9 @@ public class MainActivity extends ActionBarActivity {
                         }
 
                     }
-                    System.out.println("onPageFinished : " + url);
+
+
+
 
                 }
 
