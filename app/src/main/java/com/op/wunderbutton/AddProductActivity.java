@@ -1,8 +1,10 @@
 package com.op.wunderbutton;
 
 import android.app.Activity;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -23,12 +25,18 @@ import lombok.extern.java.Log;
 @Log
 public class AddProductActivity extends Activity {
 
+    private int listId;
+
     /**
      * Keep track of the login task to ensure we can cancel it if requested.
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         log.info("onCreate");
+
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        String preferenceValue = preferences.getString(Constants.LIST_ID, "0");
+        listId = Integer.parseInt(preferenceValue);
 
         String[] aaa = new String[]{"Мусорные пакеты", "Пленка упаковочная" ,"Масло сливочное", "Масло подс."};
 //        String[] aaa = new String[]{"Туалетная бумага", "Стиральный порошек", "Зубная паста", "Ополаскивалка зубов"};
@@ -67,7 +75,9 @@ public class AddProductActivity extends Activity {
      */
     public void sendAddProductRequest(String title) {
         HashMap params2 = new HashMap();
-        params2.put(Constants.LIST_ID, 145872426);
+
+
+        params2.put(Constants.LIST_ID, listId);
         params2.put(Constants.TITLE, title);
         params2.put(Constants.COMPLETED, false);
         params2.put(Constants.STARRED, false);

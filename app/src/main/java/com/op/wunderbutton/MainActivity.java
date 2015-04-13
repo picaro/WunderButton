@@ -1,5 +1,6 @@
 package com.op.wunderbutton;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBarActivity;
@@ -12,9 +13,7 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
-import com.google.gson.reflect.TypeToken;
 import com.op.wunderbutton.model.TokenRequest;
-import com.op.wunderbutton.model.WList;
 import com.op.wunderbutton.oauth2.WebApiHelper;
 import com.op.wunderbutton.oauth2.tasks.LoadWebUrlAsyncTask;
 import com.op.wunderbutton.oauth2.tasks.OnApiRequestListener;
@@ -24,8 +23,6 @@ import com.op.wunderbutton.tools.Constants;
 
 import org.apache.http.protocol.HTTP;
 import org.json.JSONObject;
-
-import java.util.ArrayList;
 
 import lombok.extern.java.Log;
 
@@ -68,7 +65,6 @@ public class MainActivity extends ActionBarActivity {
     }
 
 
-
     /**
      * A placeholder fragment containing a simple view.
      */
@@ -81,7 +77,7 @@ public class MainActivity extends ActionBarActivity {
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_main, container, false);
-            WebView description = (WebView)rootView.findViewById(R.id.description);
+            WebView description = (WebView) rootView.findViewById(R.id.description);
             description.setScrollBarStyle(WebView.SCROLLBARS_OUTSIDE_OVERLAY);
             description.getSettings().setJavaScriptEnabled(true);
             description.getSettings().setDefaultTextEncodingName(HTTP.UTF_8);
@@ -96,43 +92,31 @@ public class MainActivity extends ActionBarActivity {
             description.setWebViewClient(new WebViewClient() {
 
                 @Override
-                public void onPageFinished(WebView view, String url)  {
+                public void onPageFinished(WebView view, String url) {
 
                     OnApiRequestListener requestListener = new OnApiRequestListener() {
 
                         @Override
-                        public void onStartRequest()
-                        {
-                            // TODO Auto-generated method stub
-
+                        public void onStartRequest() {
                         }
 
                         @Override
-                        public void onFinishRequest(String response)
-                        {
-                            log.info("FINISHED +" + response);
-                            ArrayList<WList> list = Constants.gson.fromJson(response,
-                                    new TypeToken<ArrayList<WList>>() {}.getType());
-
-//                            Intent i = new Intent(view.getContext().getApplicationContext(), AddProductActivity.class);
-//                            i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//                            view.getContext().getApplicationContext().startActivity(i);
-
-                            // saveFeedlyRefreshTokenFromResponseToPreferences(response);
+                        public void onFinishRequest(String response) {
+                            Intent i = new Intent(getActivity().getApplicationContext(), SelectListActivity.class);
+                            i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            i.putExtra(Constants.LISTS_JSON, response);
+                            getActivity().getApplicationContext().startActivity(i);
                         }
 
                         @Override
-                        public void onException(Exception ex)
-                        {
-                            // TODO Auto-generated method stub
-
+                        public void onException(Exception ex) {
                         }
                     };
 
                     if (url.contains(Constants.LOCALHOST)) {
                         try {
                             if (url.contains(Constants.CODE_EQ)) {
-                                String code = url.substring(url.indexOf(Constants.CODE_EQ)+5);
+                                String code = url.substring(url.indexOf(Constants.CODE_EQ) + 5);
                                 WebApiHelper.register(view.getContext());
                                 WebApiHelper.getInstance().saveToSharedPreferences(view.getContext(), R.string.feedly_api_refresh_token, code);
 
@@ -141,25 +125,14 @@ public class MainActivity extends ActionBarActivity {
                                 tokenRequest.setCode(code);
                                 tokenRequest.setClient_secret(view.getContext().getResources().getString(R.string.wunderlist_client_secret));
 
-//                                HashMap<String, String> params = new HashMap<String, String>();
-//                                params.put("client_id", view.getContext().getResources().getString(R.string.wunderlist_client_id));
-//                                params.put("client_secret", view.getContext().getResources().getString(R.string.wunderlist_client_secret));
-//                                params.put("code", code);
-//                                ;
                                 WebApiHelper.getInstance().refreshAccessToken(new JSONObject(Constants.gson.toJson(tokenRequest)));
 
-                                WList wList = new WList();
                                 LoadWebUrlAsyncTask task = new LoadWebUrlAsyncTask();
                                 GetListsRequest request = new GetListsRequest(view.getContext());
                                 task.execute(request);
                                 task.setOnWebRequestCallback(requestListener);
 
-
-                                //CHANGE VIEW
-//                                Intent i = new Intent(view.getContext().getApplicationContext(), AddProductActivity.class);
-//                                i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//                                view.getContext().getApplicationContext().startActivity(i);
-                            } else if (url.indexOf("error=")!=-1) {
+                            } else if (url.indexOf("error=") != -1) {
                                 log.info("error in url:" + url);
                             }
 
@@ -168,8 +141,6 @@ public class MainActivity extends ActionBarActivity {
                         }
 
                     }
-
-
 
 
                 }

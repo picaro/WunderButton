@@ -7,6 +7,7 @@ import com.google.gson.Gson;
  */
 public class Constants {
 
+    public static final String LISTS_JSON = "LISTS_JSON";
     public static Gson gson = new Gson();
 
     public static final String POST = "POST";
