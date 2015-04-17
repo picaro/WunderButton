@@ -23,9 +23,6 @@ public class SelectListActivity extends ListActivity {
 
     private ArrayList<WList> lists;
 
-    /**
-     * Keep track of the login task to ensure we can cancel it if requested.
-     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         log.info("onCreate");
@@ -35,13 +32,18 @@ public class SelectListActivity extends ListActivity {
 
         Intent intent = getIntent();
         String listsJson = intent.getStringExtra(Constants.LISTS_JSON);
+        if (listsJson == null) {
+            Intent i = new Intent(getApplicationContext(), MainActivity.class);
+            i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            this.startActivity(i);
+        }
+
         lists = Constants.gson.fromJson(listsJson,
                 new TypeToken<ArrayList<WList>>() {
                 }.getType());
 
         String[] listItems = new String[lists.size()];
 
-        //ListView listView = (ListView) findViewById(R.id.list);
         ArrayAdapter adapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1,
                 listItems);
@@ -60,7 +62,7 @@ public class SelectListActivity extends ListActivity {
         currentEditor.putString(Constants.LIST_ID, "" + lists.get(position).getId());
         currentEditor.commit();
 
-        Intent i = new Intent(v.getContext().getApplicationContext(), AddProductActivity.class);
+        Intent i = new Intent(v.getContext().getApplicationContext(), SelectRoomActivity.class);
         i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         v.getContext().getApplicationContext().startActivity(i);
 

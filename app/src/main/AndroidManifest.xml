@@ -43,6 +43,10 @@
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
-      </application>
+        <activity
+            android:name=".SelectRoomActivity"
+            android:label="@string/title_activity_select_room" >
+        </activity>
+    </application>
 
 </manifest>
