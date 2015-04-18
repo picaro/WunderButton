@@ -17,7 +17,9 @@ import com.op.wunderbutton.tools.Constants;
 
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.StringTokenizer;
 
 import lombok.extern.java.Log;
 
@@ -35,17 +37,51 @@ public class AddProductActivity extends Activity {
         log.info("onCreate");
 
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+
         String preferenceValue = preferences.getString(Constants.LIST_ID, "0");
         listId = Integer.parseInt(preferenceValue);
 
-        String[] aaa = new String[]{"Мусорные пакеты", "Пленка упаковочная" ,"Масло сливочное", "Масло подс."};
+        Integer roomId = preferences.getInt(Constants.ROOM_ID, R.id.img_wc);
+        ArrayList<String> prodListStr = new ArrayList();
+        StringTokenizer stokens = null;
+        switch (roomId){
+            case R.id.img_kitchen:{
+                stokens = new StringTokenizer(getApplicationContext().getResources().getString(R.string.kitchen_products), "|");
+                while (stokens.hasMoreElements()) {
+                    prodListStr.add(stokens.nextElement().toString());
+                }
+                break;
+            }
+            case R.id.img_wc:{
+                stokens = new StringTokenizer(getApplicationContext().getResources().getString(R.string.wc_products), "|");
+                while (stokens.hasMoreElements()) {
+                    prodListStr.add(stokens.nextElement().toString());
+                }
+                break;
+            }
+            case R.id.img_bath:{
+                stokens = new StringTokenizer(getApplicationContext().getResources().getString(R.string.bath_products), "|");
+                while (stokens.hasMoreElements()) {
+                    prodListStr.add(stokens.nextElement().toString());
+                }
+                break;
+            }
+            case R.id.img_bath_wc:{
+                break;
+            }
+        }
+
+
+
+
+//        String[] prodListStr = new String[]{"Мусорные пакеты", "Пленка упаковочная" ,"Масло сливочное", "Масло подс."};
 //        String[] aaa = new String[]{"Туалетная бумага", "Стиральный порошек", "Зубная паста", "Ополаскивалка зубов"};
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_prod_list);
 
         LinearLayout scrollView = (LinearLayout) findViewById(R.id.productslist);
-        for (final String prodTitle : aaa) {
+        for (final String prodTitle : prodListStr) {
             Button imageButton = new Button(getApplicationContext());
             imageButton.setBackgroundColor(0xffffb333);
             imageButton.setTextColor(Color.BLACK);

@@ -6,7 +6,6 @@
 	<string name="wunderlist_api_url">https://a.wunderlist.com/api</string>
     <string name="wunderlist_api_auth">https://www.wunderlist.com</string>
 
-	<!-- do not change anything below this line -->
 	<string name="wunderlist_auth_header">Authorization</string>
 	
 	<string name="wunderlist_authenticate_user">/oauth/authorize</string>
@@ -31,5 +30,5 @@
 	<string name="feedly_api_refresh_token">code</string>
 	<string name="feedly_api_user_id">id</string>
 	
-    <string name="prod1">Prod1</string>
+    <!--<string name="prod1">Prod1</string>-->
 </resources>
