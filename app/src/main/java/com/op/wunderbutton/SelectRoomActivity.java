@@ -44,7 +44,6 @@ public class SelectRoomActivity extends ActionBarActivity implements View.OnClic
     public void onClick(View v) {
         Intent i = new Intent(getApplicationContext(), AddProductActivity.class);
         i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        //i.putExtra(Constants.ROOM_ID, v.getId());
 
         SharedPreferences currentPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         SharedPreferences.Editor currentEditor = currentPreferences.edit();

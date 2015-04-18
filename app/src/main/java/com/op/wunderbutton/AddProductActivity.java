@@ -67,6 +67,14 @@ public class AddProductActivity extends Activity {
                 break;
             }
             case R.id.img_bath_wc:{
+                stokens = new StringTokenizer(getApplicationContext().getResources().getString(R.string.bath_products), "|");
+                while (stokens.hasMoreElements()) {
+                    prodListStr.add(stokens.nextElement().toString());
+                }
+                stokens = new StringTokenizer(getApplicationContext().getResources().getString(R.string.wc_products), "|");
+                while (stokens.hasMoreElements()) {
+                    prodListStr.add(stokens.nextElement().toString());
+                }
                 break;
             }
         }
