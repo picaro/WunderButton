@@ -22,7 +22,6 @@ public class SelectRoomActivity extends ActionBarActivity implements View.OnClic
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_select_room, menu);
         return true;
     }
@@ -30,7 +29,7 @@ public class SelectRoomActivity extends ActionBarActivity implements View.OnClic
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_change_list) {
             Intent i = new Intent(this, MainActivity.class);
             i.addFlags(Intent.FLAG_FROM_BACKGROUND);
             this.startActivity(i);

@@ -8,6 +8,15 @@
     tools:context="com.op.wunderbutton.AddProductActivity">
 
 
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/add_an_item"
+        android:layout_gravity="center_horizontal"
+        android:maxLines="1"
+        android:singleLine="true"
+        android:hint="@string/add_item" />
+
     <ScrollView android:id="@+id/products_form" android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fillViewport="false">
