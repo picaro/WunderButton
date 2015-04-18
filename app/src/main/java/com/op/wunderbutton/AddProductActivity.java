@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBarActivity;
+import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -36,6 +37,7 @@ public class AddProductActivity extends ActionBarActivity {
 
     private int listId;
 
+    private ArrayList<String> prodListStr;
     /**
      * Keep track of the login task to ensure we can cancel it if requested.
      */
@@ -47,7 +49,7 @@ public class AddProductActivity extends ActionBarActivity {
         String preferenceValue = preferences.getString(Constants.LIST_ID, "0");
         listId = Integer.parseInt(preferenceValue);
 
-        ArrayList<String> prodListStr = restoreProductLists(preferences);
+        prodListStr = restoreProductLists(preferences);
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_prod_list);
@@ -65,6 +67,7 @@ public class AddProductActivity extends ActionBarActivity {
                     public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                         if (actionId == EditorInfo.IME_ACTION_DONE) {
                             Button imageButton = createProductButton(addProduct.getText().toString());
+                            prodListStr.add(0, addProduct.getText().toString());
                             scrollView.addView(imageButton, 0);
                             addProduct.setText("");
                             return true;
@@ -76,7 +79,26 @@ public class AddProductActivity extends ActionBarActivity {
 
     }
 
+    @Override
+    protected void onSaveInstanceState(Bundle outState){
+        if(prodListStr != null && prodListStr.size() > 0) {
+            String strToSave = TextUtils.join("|", prodListStr);
+            SharedPreferences currentPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+            SharedPreferences.Editor currentEditor = currentPreferences.edit();
+            currentEditor.putString(Constants.SAVED_LIST, strToSave);
+            currentEditor.commit();
+        }
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle outState){
+        //prodListStr = restoreProductLists(preferences);
+    }
+
+
+
     private Button createProductButton(final String prodTitle) {
+
         Button imageButton = new Button(getApplicationContext());
         imageButton.setBackgroundColor(0xffffb333);
         imageButton.setTextColor(Color.BLACK);
