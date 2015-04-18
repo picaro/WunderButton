@@ -7,3 +7,6 @@ For example in toilet I setup buttons - Toilet Paper, Washing Powder, Tooth Past
 so in one click i add necessary item to my shop-list.
 
 it's could be like Amazon button , but a bit simpler. 
+
+
+![logo](https://raw.github.com/picaro/WunderButton/master/app/src/main/ic_launcher-web.png)
