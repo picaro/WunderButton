@@ -9,26 +9,26 @@
 	<string name="wunderlist_auth_header">Authorization</string>
 	
 	<string name="wunderlist_authenticate_user">/oauth/authorize</string>
-	<string name="feedly_api_param_response_type">response_type</string>
-	<string name="feedly_api_param_response_type_default_val">12345</string>
-	<string name="feedly_api_param_client_id">client_id</string>
-	<string name="feedly_api_param_redirect_uri">redirect_uri</string>
-	<string name="feedly_api_param_scope">state</string>
-	<string name="feedly_api_param_scope_default_val">1234567890</string>
-	<string name="feedly_api_param_state">state</string>
+	<string name="wunderlist_param_response_type">response_type</string>
+	<string name="wunderlist_param_response_type_default_val">12345</string>
+	<string name="wunderlist_param_client_id">client_id</string>
+	<string name="wunderlist_param_redirect_uri">redirect_uri</string>
+	<string name="wunderlist_param_scope">state</string>
+	<string name="wunderlist_param_scope_default_val">1234567890</string>
+	<string name="wunderlist_param_state">state</string>
 	
-	<string name="feedly_api_exchange_code_for_tokens">/oauth/access_token</string>
-	<string name="feedly_api_param_client_secret">client_secret</string>
+	<string name="wunderlist_exchange_code_for_tokens">/oauth/access_token</string>
+	<string name="wunderlist_param_client_secret">client_secret</string>
 	<string name="wunderlist_param_code">code</string>
-	<string name="feedly_api_param_grant_type">grant_type</string>
-	<string name="feedly_api_param_grant_type_default_val">authorization_code</string>
+	<string name="wunderlist_param_grant_type">grant_type</string>
+	<string name="wunderlist_param_grant_type_default_val">authorization_code</string>
 	
 	<string name="wunderlist_api_tasks">/v1/tasks</string>
     <string name="wunderlist_api_lists">/v1/lists</string>
 
-    <string name="feedly_api_access_token">access_token</string>
-	<string name="feedly_api_refresh_token">code</string>
-	<string name="feedly_api_user_id">id</string>
+    <string name="wunderlist_access_token">access_token</string>
+	<string name="wunderlist_refresh_token">code</string>
+	<string name="wunderlist_user_id">id</string>
 	
     <!--<string name="prod1">Prod1</string>-->
 </resources>

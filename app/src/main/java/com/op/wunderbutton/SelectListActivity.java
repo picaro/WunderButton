@@ -3,11 +3,17 @@ package com.op.wunderbutton;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.reflect.TypeToken;
 import com.op.wunderbutton.model.WList;
@@ -15,7 +21,6 @@ import com.op.wunderbutton.tools.Constants;
 
 import java.util.ArrayList;
 
-import lombok.core.Main;
 import lombok.extern.java.Log;
 
 
@@ -23,6 +28,25 @@ import lombok.extern.java.Log;
 public class SelectListActivity extends ListActivity {
 
     private ArrayList<WList> lists;
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_select_room, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.action_change_list) {
+            Intent i = new Intent(this, MainActivity.class);
+            i.addFlags(Intent.FLAG_FROM_BACKGROUND);
+            this.startActivity(i);
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,11 +67,28 @@ public class SelectListActivity extends ListActivity {
                 new TypeToken<ArrayList<WList>>() {
                 }.getType());
 
+        if (lists == null){
+            return; //?? go to main?
+        }
+
         String[] listItems = new String[lists.size()];
+        if (lists.size() == 0){
+            Toast.makeText(getApplicationContext(),
+                    getResources().getText(R.string.lets_create_list), Toast.LENGTH_LONG).show();
+        }
 
         ArrayAdapter adapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1,
-                listItems);
+                listItems){
+            @Override
+            public View getView(int position, View convertView,
+                                ViewGroup parent) {
+                View view =super.getView(position, convertView, parent);
+                TextView textView=(TextView) view.findViewById(android.R.id.text1);
+                textView.setTextColor(Color.WHITE);
+                return view;
+            }
+        };
 
         int i = 0;
         for (final WList wList : lists) {

@@ -93,7 +93,7 @@ public class WebApiHelper
 	
 	public void refreshAccessToken(JSONObject jsonObject)
 	{
-		String refreshToken = getSharedPreferenceValue(R.string.feedly_api_refresh_token);
+		String refreshToken = getSharedPreferenceValue(R.string.wunderlist_refresh_token);
 		if (TextUtils.isEmpty(refreshToken))
 		{
 			return;
@@ -133,10 +133,10 @@ public class WebApiHelper
 		try
 		{
 			JSONObject json = new JSONObject(response);
-			String accessToken = json.getString(getResourceString(R.string.feedly_api_access_token));
+			String accessToken = json.getString(getResourceString(R.string.wunderlist_access_token));
 			String clientId = getResourceString(R.string.wunderlist_client_id);
-			saveToSharedPreferences(R.string.feedly_api_access_token, accessToken);
-			saveToSharedPreferences(R.string.feedly_api_param_client_id, clientId);
+			saveToSharedPreferences(R.string.wunderlist_access_token, accessToken);
+			saveToSharedPreferences(R.string.wunderlist_param_client_id, clientId);
 			return true;
 		}
 		catch (JSONException e)

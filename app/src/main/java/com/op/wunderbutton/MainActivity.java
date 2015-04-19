@@ -115,6 +115,8 @@ public class MainActivity extends ActionBarActivity {
 
                 @Override
                 public void onPageFinished(WebView view, String url) {
+//                    view.findViewById(R.id.imageLoading1).setVisibility(View.GONE);
+                    view.findViewById(R.id.webpage).setVisibility(View.VISIBLE);
 
                     OnApiRequestListener requestListener = new OnApiRequestListener() {
 
@@ -124,6 +126,7 @@ public class MainActivity extends ActionBarActivity {
 
                         @Override
                         public void onFinishRequest(String response) {
+
                             Intent i = new Intent(getActivity().getApplicationContext(), SelectListActivity.class);
                             i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                             i.putExtra(Constants.LISTS_JSON, response);
@@ -143,7 +146,7 @@ public class MainActivity extends ActionBarActivity {
 
                                 String code = url.substring(url.indexOf(Constants.CODE_EQ) + 5);
                                 WebApiHelper.register(view.getContext());
-                                WebApiHelper.getInstance().saveToSharedPreferences(view.getContext(), R.string.feedly_api_refresh_token, code);
+                                WebApiHelper.getInstance().saveToSharedPreferences(view.getContext(), R.string.wunderlist_refresh_token, code);
 
                                 TokenRequest tokenRequest = new TokenRequest();
                                 tokenRequest.setClient_id(view.getContext().getResources().getString(R.string.wunderlist_client_id));

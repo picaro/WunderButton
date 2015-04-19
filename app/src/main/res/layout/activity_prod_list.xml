@@ -5,12 +5,14 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@drawable/wood_bg"
     tools:context="com.op.wunderbutton.AddProductActivity">
 
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textColor="@android:color/white"
         android:id="@+id/add_an_item"
         android:layout_gravity="center_horizontal"
         android:maxLines="1"

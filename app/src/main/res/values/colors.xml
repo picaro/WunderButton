@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <item name="prod_selected_color" type="color">#FFFFFF99</item>
+    <item name="prod_default_color" type="color">#FFFFB333</item>
+
+</resources>

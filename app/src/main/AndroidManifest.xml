@@ -30,12 +30,12 @@
         </activity>
         <activity
             android:name=".AddProductActivity"
-            android:label="@string/title_activity_login"
+            android:label="@string/title_activity_addproduct"
             android:windowSoftInputMode="adjustResize|stateHidden" >
         </activity>
         <activity
             android:name=".SelectListActivity"
-            android:label="@string/title_activity_login"
+            android:label="@string/title_activity_selectlist"
             android:windowSoftInputMode="adjustResize|stateHidden" >
         </activity>
 

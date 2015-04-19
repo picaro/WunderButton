@@ -43,9 +43,7 @@ public class AddProductActivity extends ActionBarActivity {
 
     private Map<String, View> selectedItems = new HashMap();
 
-    /**
-     * Keep track of the login task to ensure we can cancel it if requested.
-     */
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         log.info("onCreate Addprod");
@@ -108,14 +106,12 @@ public class AddProductActivity extends ActionBarActivity {
         imageButton.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                //final LinearLayout scrollView = (LinearLayout) findViewById(R.id.productslist);
-                //scrollView.removeView(imageButton);
                 if (selectedItems.get(prodTitle) != null) {
                     selectedItems.remove(prodTitle);
-                    imageButton.setBackgroundColor(0xffffb333);
+                    imageButton.setBackgroundColor(getResources().getColor(R.color.prod_default_color));
                 } else {
                     selectedItems.put(prodTitle, imageButton);
-                    imageButton.setBackgroundColor(0xffffff99);
+                    imageButton.setBackgroundColor(getResources().getColor(R.color.prod_selected_color));
                 }
 
                 invalidateOptionsMenu();
@@ -125,7 +121,7 @@ public class AddProductActivity extends ActionBarActivity {
             }
         });
 
-        imageButton.setBackgroundColor(0xffffb333);
+        imageButton.setBackgroundColor(getResources().getColor(R.color.prod_default_color));
         imageButton.setTextColor(Color.BLACK);
         imageButton.setText(prodTitle);
         imageButton.setHeight(80);
@@ -137,11 +133,27 @@ public class AddProductActivity extends ActionBarActivity {
         imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                sendAddProductRequest(prodTitle);
-                Toast.makeText(view.getContext(), "Product added", Toast.LENGTH_SHORT).show();
+                if (selectedItems.size() > 0){
+                    clearSelected();
+                } else {
+                    sendAddProductRequest(prodTitle);
+                    Toast.makeText(view.getContext(), getResources().getText(R.string.product_added) , Toast.LENGTH_SHORT).show();
+                }
             }
         });
         return imageButton;
+    }
+
+    private void clearSelected() {
+        for (String pstr : prodListStr) {
+            View sButton = selectedItems.get(pstr);
+            if (sButton != null) {
+                sButton.setBackgroundColor(getResources().getColor(R.color.prod_default_color));
+            }
+            selectedItems.remove(pstr);
+        }
+        //selectedItems.clear();
+        invalidateOptionsMenu();
     }
 
     private ArrayList<String> restoreProductLists(SharedPreferences preferences) {
@@ -211,9 +223,6 @@ public class AddProductActivity extends ActionBarActivity {
         int id = item.getItemId();
         if (id == R.id.action_change_list) {
             SharedPreferences currentPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-//            SharedPreferences.Editor currentEditor = currentPreferences.edit();
-//            currentEditor.putString(Constants.SAVED_LIST, "");
-//            currentEditor.commit();
             prodListStr = new ArrayList<String>();
             currentPreferences.edit().clear().commit();
 
@@ -233,16 +242,13 @@ public class AddProductActivity extends ActionBarActivity {
                 }
 
             }
+            selectedItems.clear();
+            invalidateOptionsMenu();
             return true;
         }
         return super.onOptionsItemSelected(item);
     }
 
-    /**
-     * Attempts to sign in or register the account specified by the login form.
-     * If there are form errors (invalid email, missing fields, etc.), the
-     * errors are presented and no actual login attempt is made.
-     */
     public void sendAddProductRequest(String title) {
         HashMap params2 = new HashMap();
 

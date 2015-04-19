@@ -39,7 +39,7 @@ public abstract class WebApiRequest
 	
 	public String getOAuthToken()
 	{
-		return getSharedPreferenceValue(R.string.feedly_api_access_token);
+		return getSharedPreferenceValue(R.string.wunderlist_access_token);
 	}
 
     public String getSharedPreferenceValue(int resourceKeyId)
