@@ -116,7 +116,7 @@ public class MainActivity extends ActionBarActivity {
                 @Override
                 public void onPageFinished(WebView view, String url) {
 //                    view.findViewById(R.id.imageLoading1).setVisibility(View.GONE);
-                    view.findViewById(R.id.webpage).setVisibility(View.VISIBLE);
+                    //view.findViewById(R.id.webpage).setVisibility(View.VISIBLE);
 
                     OnApiRequestListener requestListener = new OnApiRequestListener() {
 
