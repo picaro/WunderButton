@@ -211,6 +211,10 @@ public class AddProductActivity extends ActionBarActivity {
         int id = item.getItemId();
         if (id == R.id.action_change_list) {
             SharedPreferences currentPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+//            SharedPreferences.Editor currentEditor = currentPreferences.edit();
+//            currentEditor.putString(Constants.SAVED_LIST, "");
+//            currentEditor.commit();
+            prodListStr = new ArrayList<String>();
             currentPreferences.edit().clear().commit();
 
             Intent i = new Intent(this, MainActivity.class);
