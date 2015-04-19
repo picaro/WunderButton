@@ -5,4 +5,12 @@
 
     <item android:id="@+id/action_change_list" android:title="@string/action_change_list"
         android:orderInCategory="100" app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_delete"
+        android:visible="false"
+        android:orderInCategory="100"
+        app:showAsAction="always"
+        android:icon="@android:drawable/ic_delete"
+        android:title="Delete"/>
 </menu>

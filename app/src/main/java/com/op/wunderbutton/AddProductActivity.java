@@ -27,6 +27,8 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 import java.util.StringTokenizer;
 
 import lombok.extern.java.Log;
@@ -38,6 +40,9 @@ public class AddProductActivity extends ActionBarActivity {
     private int listId;
 
     private ArrayList<String> prodListStr;
+
+    private Map<String, View> selectedItems = new HashMap();
+
     /**
      * Keep track of the login task to ensure we can cancel it if requested.
      */
@@ -80,8 +85,8 @@ public class AddProductActivity extends ActionBarActivity {
     }
 
     @Override
-    protected void onSaveInstanceState(Bundle outState){
-        if(prodListStr != null && prodListStr.size() > 0) {
+    protected void onSaveInstanceState(Bundle outState) {
+        if (prodListStr != null && prodListStr.size() > 0) {
             String strToSave = TextUtils.join("|", prodListStr);
             SharedPreferences currentPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
             SharedPreferences.Editor currentEditor = currentPreferences.edit();
@@ -91,15 +96,35 @@ public class AddProductActivity extends ActionBarActivity {
     }
 
     @Override
-    protected void onRestoreInstanceState(Bundle outState){
+    protected void onRestoreInstanceState(Bundle outState) {
         //prodListStr = restoreProductLists(preferences);
     }
 
 
-
     private Button createProductButton(final String prodTitle) {
 
-        Button imageButton = new Button(getApplicationContext());
+        final Button imageButton = new Button(getApplicationContext());
+
+        imageButton.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                //final LinearLayout scrollView = (LinearLayout) findViewById(R.id.productslist);
+                //scrollView.removeView(imageButton);
+                if (selectedItems.get(prodTitle) != null) {
+                    selectedItems.remove(prodTitle);
+                    imageButton.setBackgroundColor(0xffffb333);
+                } else {
+                    selectedItems.put(prodTitle, imageButton);
+                    imageButton.setBackgroundColor(0xffffff99);
+                }
+
+                invalidateOptionsMenu();
+
+                log.info("sel view");
+                return true;
+            }
+        });
+
         imageButton.setBackgroundColor(0xffffb333);
         imageButton.setTextColor(Color.BLACK);
         imageButton.setText(prodTitle);
@@ -125,7 +150,7 @@ public class AddProductActivity extends ActionBarActivity {
         StringTokenizer stokens = null;
 
         String savedList = preferences.getString(Constants.SAVED_LIST, "");
-        if (savedList.length() > 0 ) {
+        if (savedList.length() > 0) {
             log.info("found savedList:" + savedList);
             stokens = new StringTokenizer(savedList, "|");
             while (stokens.hasMoreElements()) {
@@ -173,6 +198,11 @@ public class AddProductActivity extends ActionBarActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_products, menu);
+        if (selectedItems.size() > 0) {
+            menu.findItem(R.id.action_delete).setVisible(true);
+        } else {
+            menu.findItem(R.id.action_delete).setVisible(false);
+        }
         return true;
     }
 
@@ -188,7 +218,19 @@ public class AddProductActivity extends ActionBarActivity {
             this.startActivity(i);
             return true;
         }
+        if (id == R.id.action_delete) {
+            final LinearLayout scrollView = (LinearLayout) findViewById(R.id.productslist);
+            for (Iterator<String> i = prodListStr.iterator(); i.hasNext(); ) {
+                String str = i.next();
+                //for (String str : prodListStr) {
+                if (selectedItems.get(str) != null) {
+                    i.remove();
+                    scrollView.removeView(selectedItems.get(str));
+                }
 
+            }
+            return true;
+        }
         return super.onOptionsItemSelected(item);
     }
 
