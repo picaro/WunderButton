@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">"WunderButton"</string>
+    <string name="action_settings">"Настройки"</string>
+    <string name="title_activity_addproduct">"Выбор продукта"</string>
+    <string name="title_activity_selectlist">"Выберите список из Wunderlist"</string>
+    <string name="title_activity_select_room">"Выберите комнату"</string>
+
+    <string name="kitchen">Kitchen</string>
+    <string name="wc">WC</string>
+    <string name="bath">Bath</string>
+    <string name="wc_bath">WC + Bath</string>
+
+    <string name="action_change_list">"Сменить список"</string>
+    <string name="add_item">"Добавить продукт"</string>
+    <string name="product_added">"Продукт добавлен"</string>
+    <string name="lets_create_list">"Давайте сначала создадим список, в Wunderlist "</string>
+    <string name="action_refresh">"Обновить"</string>
+	
+	    <string name="def_products">Туалетная бумага|Стиральный порошек|Зубная паста|Шампунь</string>
+</resources>

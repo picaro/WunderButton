@@ -50,7 +50,7 @@ public class SelectListActivity extends ListActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        log.info("onCreate");
+        log.info("onCreate SelectListActivity");
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_list);
@@ -67,24 +67,24 @@ public class SelectListActivity extends ListActivity {
                 new TypeToken<ArrayList<WList>>() {
                 }.getType());
 
-        if (lists == null){
+        if (lists == null) {
             return; //?? go to main?
         }
 
         String[] listItems = new String[lists.size()];
-        if (lists.size() == 0){
+        if (lists.size() == 0) {
             Toast.makeText(getApplicationContext(),
                     getResources().getText(R.string.lets_create_list), Toast.LENGTH_LONG).show();
         }
 
         ArrayAdapter adapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1,
-                listItems){
+                listItems) {
             @Override
             public View getView(int position, View convertView,
                                 ViewGroup parent) {
-                View view =super.getView(position, convertView, parent);
-                TextView textView=(TextView) view.findViewById(android.R.id.text1);
+                View view = super.getView(position, convertView, parent);
+                TextView textView = (TextView) view.findViewById(android.R.id.text1);
                 textView.setTextColor(Color.WHITE);
                 return view;
             }

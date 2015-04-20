@@ -1,8 +1,13 @@
 <resources>
 
-    <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="android:actionBarStyle">@android:style/Widget.Holo.Light.ActionBar.Solid.Inverse</item>
     </style>
 
+    <!--<style name="ActionBar" parent="@android:style/Widget.Holo.Light.ActionBar.Solid.Inverse">-->
+        <!--<item name="android:background">@android:color/darker_gray</item>-->
+        <!--<item name="android:backgroundStacked">@android:color/darker_gray</item>-->
+        <!--<item name="android:backgroundSplit">@android:color/darker_gray</item>-->
+    <!--</style>-->
 
 </resources>

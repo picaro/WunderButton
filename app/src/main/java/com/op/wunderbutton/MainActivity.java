@@ -76,19 +76,21 @@ public class MainActivity extends ActionBarActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_change_list) {
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onBackPressed()
+    {
+        WebView webView = (WebView) this.findViewById(R.id.webpage);
+        if(webView.canGoBack()){
+            webView.goBack();
+        }
+    }
 
     /**
      * A placeholder fragment containing a simple view.
@@ -98,28 +100,27 @@ public class MainActivity extends ActionBarActivity {
         public PlaceholderFragment() {
         }
 
+        private WebView webView;
 
-
-        private WebView description;
 
 
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_main, container, false);
-            description = (WebView) rootView.findViewById(R.id.webpage);
-            description.setScrollBarStyle(WebView.SCROLLBARS_OUTSIDE_OVERLAY);
-            description.getSettings().setJavaScriptEnabled(true);
-            description.getSettings().setDefaultTextEncodingName(HTTP.UTF_8);
-            description.getSettings().setLoadWithOverviewMode(true);
-            description.getSettings().setSupportZoom(true);
-            description.getSettings().setBuiltInZoomControls(true);
-            description.requestFocus(View.FOCUS_DOWN);
-            description.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.NORMAL);
+            webView = (WebView) rootView.findViewById(R.id.webpage);
+            webView.setScrollBarStyle(WebView.SCROLLBARS_OUTSIDE_OVERLAY);
+            webView.getSettings().setJavaScriptEnabled(true);
+            webView.getSettings().setDefaultTextEncodingName(HTTP.UTF_8);
+            webView.getSettings().setLoadWithOverviewMode(true);
+            webView.getSettings().setSupportZoom(true);
+            webView.getSettings().setBuiltInZoomControls(true);
+            webView.requestFocus(View.FOCUS_DOWN);
+            webView.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.NORMAL);
             GetCodeRequest request = new GetCodeRequest(getActivity());
 
                /* WebViewClient must be set BEFORE calling loadUrl! */
-            description.setWebViewClient(new WebViewClient() {
+            webView.setWebViewClient(new WebViewClient() {
 
                 @Override
                 public void onPageFinished(WebView view, String url) {
@@ -149,7 +150,7 @@ public class MainActivity extends ActionBarActivity {
                     if (url.contains(Constants.LOCALHOST)) {
                         try {
                             if (url.contains(Constants.CODE_EQ)) {
-                                WebView webView = (WebView)view.findViewById(R.id.webpage);
+                                WebView webView = (WebView) view.findViewById(R.id.webpage);
                                 webView.destroy();
 
                                 String code = url.substring(url.indexOf(Constants.CODE_EQ) + 5);
@@ -184,7 +185,7 @@ public class MainActivity extends ActionBarActivity {
             });
 
 
-            description.loadUrl(request.getEncodedUrl());//
+            webView.loadUrl(request.getEncodedUrl());//
             return rootView;
         }
     }

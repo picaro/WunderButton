@@ -84,6 +84,10 @@ public class AddProductActivity extends ActionBarActivity {
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
+        saveProducts();
+    }
+
+    private void saveProducts() {
         if (prodListStr != null && prodListStr.size() > 0) {
             String strToSave = TextUtils.join("|", prodListStr);
             SharedPreferences currentPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
@@ -152,7 +156,6 @@ public class AddProductActivity extends ActionBarActivity {
             }
             selectedItems.remove(pstr);
         }
-        //selectedItems.clear();
         invalidateOptionsMenu();
     }
 
@@ -190,9 +193,9 @@ public class AddProductActivity extends ActionBarActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.action_change_list) {
+            saveProducts();
             SharedPreferences currentPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-            prodListStr = new ArrayList<String>();
-            currentPreferences.edit().clear().commit();
+            currentPreferences.edit().putString(Constants.LIST_ID, "0").commit();
 
             Intent i = new Intent(this, MainActivity.class);
             i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -203,7 +206,6 @@ public class AddProductActivity extends ActionBarActivity {
             final LinearLayout scrollView = (LinearLayout) findViewById(R.id.productslist);
             for (Iterator<String> i = prodListStr.iterator(); i.hasNext(); ) {
                 String str = i.next();
-                //for (String str : prodListStr) {
                 if (selectedItems.get(str) != null) {
                     i.remove();
                     scrollView.removeView(selectedItems.get(str));
