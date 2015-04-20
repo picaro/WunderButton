@@ -8,7 +8,6 @@ import com.google.gson.Gson;
 public class Constants {
 
     public static final String LISTS_JSON = "LISTS_JSON";
-    public static final String ROOM_ID = "ROOM_ID";
     public static final String SAVED_LIST = "SAVED_LIST";
     public static Gson gson = new Gson();
 

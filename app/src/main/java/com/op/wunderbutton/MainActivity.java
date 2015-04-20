@@ -31,9 +31,11 @@ import lombok.extern.java.Log;
 @Log
 public class MainActivity extends ActionBarActivity {
 
+    private WebView description;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         log.info("init");
+
 
         super.onCreate(savedInstanceState);
 
@@ -49,6 +51,7 @@ public class MainActivity extends ActionBarActivity {
         }
 
     }
+
 
     private boolean redirectOnSecondLaunch() {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
@@ -95,11 +98,16 @@ public class MainActivity extends ActionBarActivity {
         public PlaceholderFragment() {
         }
 
+
+
+        private WebView description;
+
+
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_main, container, false);
-            WebView description = (WebView) rootView.findViewById(R.id.webpage);
+            description = (WebView) rootView.findViewById(R.id.webpage);
             description.setScrollBarStyle(WebView.SCROLLBARS_OUTSIDE_OVERLAY);
             description.getSettings().setJavaScriptEnabled(true);
             description.getSettings().setDefaultTextEncodingName(HTTP.UTF_8);

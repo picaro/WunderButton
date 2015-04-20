@@ -157,10 +157,8 @@ public class AddProductActivity extends ActionBarActivity {
     }
 
     private ArrayList<String> restoreProductLists(SharedPreferences preferences) {
-        Integer roomId = preferences.getInt(Constants.ROOM_ID, R.id.img_wc);
         ArrayList<String> prodListStr = new ArrayList();
         StringTokenizer stokens = null;
-
         String savedList = preferences.getString(Constants.SAVED_LIST, "");
         if (savedList.length() > 0) {
             log.info("found savedList:" + savedList);
@@ -169,39 +167,9 @@ public class AddProductActivity extends ActionBarActivity {
                 prodListStr.add(stokens.nextElement().toString());
             }
         } else {
-            switch (roomId) {
-                case R.id.img_kitchen: {
-                    stokens = new StringTokenizer(getApplicationContext().getResources().getString(R.string.kitchen_products), "|");
-                    while (stokens.hasMoreElements()) {
-                        prodListStr.add(stokens.nextElement().toString());
-                    }
-                    break;
-                }
-                case R.id.img_wc: {
-                    stokens = new StringTokenizer(getApplicationContext().getResources().getString(R.string.wc_products), "|");
-                    while (stokens.hasMoreElements()) {
-                        prodListStr.add(stokens.nextElement().toString());
-                    }
-                    break;
-                }
-                case R.id.img_bath: {
-                    stokens = new StringTokenizer(getApplicationContext().getResources().getString(R.string.bath_products), "|");
-                    while (stokens.hasMoreElements()) {
-                        prodListStr.add(stokens.nextElement().toString());
-                    }
-                    break;
-                }
-                case R.id.img_bath_wc: {
-                    stokens = new StringTokenizer(getApplicationContext().getResources().getString(R.string.bath_products), "|");
-                    while (stokens.hasMoreElements()) {
-                        prodListStr.add(stokens.nextElement().toString());
-                    }
-                    stokens = new StringTokenizer(getApplicationContext().getResources().getString(R.string.wc_products), "|");
-                    while (stokens.hasMoreElements()) {
-                        prodListStr.add(stokens.nextElement().toString());
-                    }
-                    break;
-                }
+            stokens = new StringTokenizer(getApplicationContext().getResources().getString(R.string.def_products), "|");
+            while (stokens.hasMoreElements()) {
+                prodListStr.add(stokens.nextElement().toString());
             }
         }
         return prodListStr;

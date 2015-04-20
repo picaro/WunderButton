@@ -1,5 +1,3 @@
 <resources>
-    <string name="kitchen_products">Paper Towels|Sunfl. oil|Butter</string>
-    <string name="wc_products">Toilet Paper|Domestos</string>
-    <string name="bath_products">Tooth Paste|Shampoo|Washing Powder|Mouthwash</string>
+    <string name="def_products">Toilet Paper|Washing Powder|Tooth Paste|Shampoo</string>
 </resources>
