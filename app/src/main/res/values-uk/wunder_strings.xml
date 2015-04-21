@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="wunderlist_client_id">c0e01b47d2550f28465d</string>
+	<string name="wunderlist_client_secret">e5b25594c2b696a9a59794ba99a50551aa366a95224c4eab8b77d8dfc917</string>
+	<string name="wunderlist_redirect_uri">http://localhost:9000</string>
+	<string name="wunderlist_api_url">https://a.wunderlist.com/api</string>
+    <string name="wunderlist_api_auth">https://www.wunderlist.com</string>
+
+	<string name="wunderlist_auth_header">Authorization</string>
+	
+	<string name="wunderlist_authenticate_user">/oauth/authorize</string>
+	<string name="wunderlist_param_response_type">response_type</string>
+	<string name="wunderlist_param_response_type_default_val">12345</string>
+	<string name="wunderlist_param_client_id">client_id</string>
+	<string name="wunderlist_param_redirect_uri">redirect_uri</string>
+	<string name="wunderlist_param_scope">state</string>
+	<string name="wunderlist_param_scope_default_val">1234567890</string>
+	<string name="wunderlist_param_state">state</string>
+	
+	<string name="wunderlist_exchange_code_for_tokens">/oauth/access_token</string>
+	<string name="wunderlist_param_client_secret">client_secret</string>
+	<string name="wunderlist_param_code">code</string>
+	<string name="wunderlist_param_grant_type">grant_type</string>
+	<string name="wunderlist_param_grant_type_default_val">authorization_code</string>
+	
+	<string name="wunderlist_api_tasks">/v1/tasks</string>
+    <string name="wunderlist_api_lists">/v1/lists</string>
+
+    <string name="wunderlist_access_token">access_token</string>
+	<string name="wunderlist_refresh_token">code</string>
+	<string name="wunderlist_user_id">id</string>
+</resources>
