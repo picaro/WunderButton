@@ -141,7 +141,7 @@ public class AddProductActivity extends ActionBarActivity {
                     clearSelected();
                 } else {
                     sendAddProductRequest(prodTitle);
-                    Toast.makeText(view.getContext(), getResources().getText(R.string.product_added) , Toast.LENGTH_SHORT).show();
+                    Toast.makeText(view.getContext(), getResources().getString(R.string.product_added) , Toast.LENGTH_SHORT).show();
                 }
             }
         });
