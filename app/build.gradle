@@ -23,7 +23,6 @@ android {
     lintOptions {
         disable 'TypographyFractions', 'TypographyQuotes','InvalidPackage'
         abortOnError false
-        checkReleaseBuilds false
     }
 }
 
