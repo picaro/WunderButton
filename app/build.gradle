@@ -3,6 +3,9 @@ apply plugin: 'com.android.application'
 android {
     signingConfigs {
     }
+    lintOptions {
+        disable 'TypographyFractions', 'TypographyQuotes','InvalidPackage'
+    }
     compileSdkVersion 20
     buildToolsVersion '20.0.0'
     defaultConfig {
