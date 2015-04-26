@@ -18,10 +18,12 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.mixpanel.android.mpmetrics.MixpanelAPI;
 import com.op.wunderbutton.oauth2.WebApiRequest;
 import com.op.wunderbutton.oauth2.tasks.LoadWebUrlAsyncTask;
 import com.op.wunderbutton.requests.AddProductRequest;
 import com.op.wunderbutton.tools.Constants;
+import com.op.wunderbutton.tools.MixpanelUtil;
 
 import org.json.JSONObject;
 
@@ -37,6 +39,8 @@ import lombok.extern.java.Log;
 @Log
 public class AddProductActivity extends ActionBarActivity {
 
+    private MixpanelAPI mMixpanel;
+
     private int listId;
 
     private ArrayList<String> prodListStr;
@@ -47,6 +51,9 @@ public class AddProductActivity extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         log.info("onCreate Addprod");
+
+        mMixpanel = MixpanelAPI.getInstance(getApplicationContext(), Constants.MIXPANEL_TOKEN);
+        MixpanelUtil.sendMixPOpened(mMixpanel, "Add product", "");
 
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         String preferenceValue = preferences.getString(Constants.LIST_ID, "0");
@@ -71,6 +78,8 @@ public class AddProductActivity extends ActionBarActivity {
                         if (actionId == EditorInfo.IME_ACTION_DONE) {
                             Button imageButton = createProductButton(addProduct.getText().toString());
                             prodListStr.add(0, addProduct.getText().toString());
+                            MixpanelUtil.sendMixPOpened(mMixpanel, "product", addProduct.getText().toString());
+
                             scrollView.addView(imageButton, 0);
                             addProduct.setText("");
                             return true;
@@ -80,6 +89,12 @@ public class AddProductActivity extends ActionBarActivity {
                 }
         );
 
+    }
+
+    @Override
+    protected void onDestroy() {
+        mMixpanel.flush();
+        super.onDestroy();
     }
 
     @Override

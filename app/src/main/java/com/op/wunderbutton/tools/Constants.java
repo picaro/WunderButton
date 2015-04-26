@@ -7,6 +7,8 @@ import com.google.gson.Gson;
  */
 public class Constants {
 
+    public static final String MIXPANEL_TOKEN = "22f94d3a94b07cbe24eb6d78c82da5c1";
+
     public static final String LISTS_JSON = "LISTS_JSON";
     public static final String SAVED_LIST = "SAVED_LIST";
     public static Gson gson = new Gson();

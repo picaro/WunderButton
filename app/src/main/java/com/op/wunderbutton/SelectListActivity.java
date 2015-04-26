@@ -16,8 +16,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.reflect.TypeToken;
+import com.mixpanel.android.mpmetrics.MixpanelAPI;
 import com.op.wunderbutton.model.WList;
 import com.op.wunderbutton.tools.Constants;
+import com.op.wunderbutton.tools.MixpanelUtil;
 
 import java.util.ArrayList;
 
@@ -28,6 +30,8 @@ import lombok.extern.java.Log;
 public class SelectListActivity extends ListActivity {
 
     private ArrayList<WList> lists;
+
+    private MixpanelAPI mMixpanel;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -49,8 +53,17 @@ public class SelectListActivity extends ListActivity {
     }
 
     @Override
+    protected void onDestroy() {
+        mMixpanel.flush();
+        super.onDestroy();
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         log.info("onCreate SelectListActivity");
+
+        mMixpanel = MixpanelAPI.getInstance(getApplicationContext(), Constants.MIXPANEL_TOKEN);
+        MixpanelUtil.sendMixPOpened(mMixpanel, "selectList opened", "");
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_list);
@@ -85,7 +98,7 @@ public class SelectListActivity extends ListActivity {
                                 ViewGroup parent) {
                 View view = super.getView(position, convertView, parent);
                 TextView textView = (TextView) view.findViewById(android.R.id.text1);
-                textView.setTextColor(Color.WHITE);
+                textView.setTextColor(Color.BLACK);
                 return view;
             }
         };
@@ -102,6 +115,8 @@ public class SelectListActivity extends ListActivity {
         SharedPreferences currentPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         SharedPreferences.Editor currentEditor = currentPreferences.edit();
         currentEditor.putString(Constants.LIST_ID, "" + lists.get(position).getId());
+        MixpanelUtil.sendMixPOpened(mMixpanel, "List", "" + lists.get(position).getId());
+
         currentEditor.commit();
 
         Intent i = new Intent(v.getContext().getApplicationContext(), AddProductActivity.class);

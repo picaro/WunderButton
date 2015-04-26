@@ -16,5 +16,5 @@
     <string name="lets_create_list">"Давайте сначала создадим список, в Wunderlist "</string>
     <string name="action_refresh">"Обновить"</string>
 	
-	    <string name="def_products">Туалетная бумага|Стиральный порошек|Зубная паста|Шампунь</string>
+	    <string name="def_products">Туалетная бумага|Стиральный порошок|Зубная паста|Шампунь</string>
 </resources>

@@ -2,8 +2,10 @@ package com.op.wunderbutton;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.provider.ContactsContract;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
@@ -15,6 +17,7 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
+import com.mixpanel.android.mpmetrics.MixpanelAPI;
 import com.op.wunderbutton.model.TokenRequest;
 import com.op.wunderbutton.oauth2.WebApiHelper;
 import com.op.wunderbutton.oauth2.tasks.LoadWebUrlAsyncTask;
@@ -22,6 +25,7 @@ import com.op.wunderbutton.oauth2.tasks.OnApiRequestListener;
 import com.op.wunderbutton.requests.GetCodeRequest;
 import com.op.wunderbutton.requests.GetListsRequest;
 import com.op.wunderbutton.tools.Constants;
+import com.op.wunderbutton.tools.MixpanelUtil;
 
 import org.apache.http.protocol.HTTP;
 import org.json.JSONObject;
@@ -31,11 +35,15 @@ import lombok.extern.java.Log;
 @Log
 public class MainActivity extends ActionBarActivity {
 
-    private WebView description;
+    private MixpanelAPI mMixpanel;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         log.info("init");
 
+        mMixpanel = MixpanelAPI.getInstance(getApplicationContext(), Constants.MIXPANEL_TOKEN);
+        setMixPIdentify();
+        MixpanelUtil.sendMixPOpened(mMixpanel, "phoneModel", android.os.Build.MODEL);
 
         super.onCreate(savedInstanceState);
 
@@ -53,10 +61,32 @@ public class MainActivity extends ActionBarActivity {
     }
 
 
+
+    private void setMixPIdentify() {
+        try {
+            Cursor c = getApplication().getContentResolver().query(ContactsContract.Profile.CONTENT_URI, null, null, null, null);
+            c.moveToFirst();
+            if (mMixpanel != null) {
+                mMixpanel.identify(c.getString(c.getColumnIndex("display_name")));
+            }
+            c.close();
+        } catch (Exception ex){
+            log.info(ex.getMessage());
+        }
+    }
+
+
+    @Override
+    protected void onDestroy() {
+        mMixpanel.flush();
+        super.onDestroy();
+    }
+
+
     private boolean redirectOnSecondLaunch() {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         String preferenceValue = preferences.getString(Constants.LIST_ID, "0");
-        if(Integer.parseInt(preferenceValue) != 0) {
+        if (Integer.parseInt(preferenceValue) != 0) {
             Intent i = new Intent(getApplicationContext(), AddProductActivity.class);
             i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             getApplicationContext().startActivity(i);
@@ -69,7 +99,6 @@ public class MainActivity extends ActionBarActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
@@ -84,10 +113,10 @@ public class MainActivity extends ActionBarActivity {
     }
 
     @Override
-    public void onBackPressed()
-    {
+    public void onBackPressed() {
+        MixpanelUtil.sendMixPOpened(mMixpanel, "back pressed", "");
         WebView webView = (WebView) this.findViewById(R.id.webpage);
-        if(webView.canGoBack()){
+        if (webView.canGoBack()) {
             webView.goBack();
         }
     }
@@ -101,7 +130,6 @@ public class MainActivity extends ActionBarActivity {
         }
 
         private WebView webView;
-
 
 
         @Override
