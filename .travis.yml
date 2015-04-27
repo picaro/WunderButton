@@ -27,12 +27,9 @@ notifications:
   email: false
   
 before_install:
-   - chmod +x gradlew
-  # for gradle output style
-  - export TERM=dumb
-
-  # environment info
-  - ./gradlew -v
-  - uname -a
+    - chmod +x gradlew
+    - export TERM=dumb
+    - ./gradlew -v
+    - uname -a
 
 script: ./gradlew clean build
