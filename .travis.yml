@@ -28,7 +28,6 @@ notifications:
   
 before_install:
    - chmod +x gradlew
-	 
   # for gradle output style
   - export TERM=dumb
 
