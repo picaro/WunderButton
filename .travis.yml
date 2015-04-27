@@ -13,16 +13,27 @@ android:
     - android-20
 
     # Additional components
-	- extra
+    - extra-google-google_play_services
+    - extra-google-m2repository
+    - extra-android-m2repository
+    - addon-google_apis-google-20
 
     # Specify at least one system image,
     # if you need to run emulator(s) during your tests
-    #- sys-img-armeabi-v7a-android-20
-    #- sys-img-x86-android-17
-jdk: oraclejdk7
-before_install:
-  - sudo apt-get update -qq
-  - if [ `uname -m` = x86_64 ]; then sudo apt-get install -qq --force-yes libgd2-xpm ia32-libs ia32-libs-multiarch > /dev/null; fi
+    - sys-img-armeabi-v7a-android-20
+    - sys-img-x86-android-17
 
-script:
-  - ./gradlew clean build
+notifications:
+  email: false
+  
+before_install:
+   - chmod +x gradlew
+	 
+  # for gradle output style
+  - export TERM=dumb
+
+  # environment info
+  - ./gradlew -v
+  - uname -a
+
+script: ./gradlew clean build
