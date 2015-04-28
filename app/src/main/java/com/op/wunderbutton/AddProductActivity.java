@@ -235,7 +235,7 @@ public class AddProductActivity extends ActionBarActivity {
     }
 
     public void sendAddProductRequest(String title) {
-        HashMap params2 = new HashMap();
+        HashMap<String,Object> params2 = new HashMap();
 
         params2.put(Constants.LIST_ID, listId);
         params2.put(Constants.TITLE, title);
