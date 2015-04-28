@@ -23,6 +23,7 @@ android {
     lintOptions {
         disable 'TypographyFractions', 'TypographyQuotes','InvalidPackage',
                 'CommitPrefEdits'
+        abortOnError false
     }
     dexOptions {
         preDexLibraries = false
