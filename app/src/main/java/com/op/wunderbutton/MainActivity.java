@@ -138,7 +138,7 @@ public class MainActivity extends ActionBarActivity {
             View rootView = inflater.inflate(R.layout.fragment_main, container, false);
             webView = (WebView) rootView.findViewById(R.id.webpage);
             webView.setScrollBarStyle(WebView.SCROLLBARS_OUTSIDE_OVERLAY);
-            webView.getSettings().setJavaScriptEnabled(true);
+            //webView.getSettings().setJavaScriptEnabled(true);
             webView.getSettings().setDefaultTextEncodingName(HTTP.UTF_8);
             webView.getSettings().setLoadWithOverviewMode(true);
             webView.getSettings().setSupportZoom(true);

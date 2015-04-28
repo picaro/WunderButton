@@ -1,14 +1,7 @@
 <resources>
     <string name = "app_name">"WunderButton"</string>
-    <string name = "action_settings">"Налаштування"</string>
     <string name = "title_activity_addproduct">"Вибір продукту"</string>
     <string name = "title_activity_selectlist">"Виберіть список з Wunderlist"</string>
-    <string name = "title_activity_select_room">"Виберіть кімнату"</string>
-
-    <string name = "kitchen"> Kitchen </string>
-    <string name = "wc"> WC </string>
-    <string name = "bath"> Bath </string>
-    <string name = "wc_bath"> WC + Bath </string>
 
     <string name = "action_change_list">"Змінити список"</string>
     <string name = "add_item">"Додати продукт"</string>

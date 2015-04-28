@@ -1,14 +1,8 @@
 <resources>
     <string name="app_name">WunderButton</string>
-    <string name="action_settings">Settings</string>
     <string name="title_activity_addproduct">Select item</string>
     <string name="title_activity_selectlist">Select list from Wunderlist</string>
-    <string name="title_activity_select_room">Select room</string>
 
-    <string name="kitchen">Kitchen</string>
-    <string name="wc">WC</string>
-    <string name="bath">Bath</string>
-    <string name="wc_bath">WC + Bath</string>
     <string name="action_change_list">Change list</string>
     <string name="add_item">Add an item</string>
     <string name="product_added">Product added</string>

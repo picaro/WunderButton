@@ -108,7 +108,7 @@ public class AddProductActivity extends ActionBarActivity {
             SharedPreferences currentPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
             SharedPreferences.Editor currentEditor = currentPreferences.edit();
             currentEditor.putString(Constants.SAVED_LIST, strToSave);
-            currentEditor.commit();
+            currentEditor.apply();
         }
     }
 
@@ -210,7 +210,7 @@ public class AddProductActivity extends ActionBarActivity {
         if (id == R.id.action_change_list) {
             saveProducts();
             SharedPreferences currentPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-            currentPreferences.edit().putString(Constants.LIST_ID, "0").commit();
+            currentPreferences.edit().putString(Constants.LIST_ID, "0").apply();
 
             Intent i = new Intent(this, MainActivity.class);
             i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

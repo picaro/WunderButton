@@ -117,7 +117,7 @@ public class SelectListActivity extends ListActivity {
         currentEditor.putString(Constants.LIST_ID, "" + lists.get(position).getId());
         MixpanelUtil.sendMixPOpened(mMixpanel, "List", "" + lists.get(position).getId());
 
-        currentEditor.commit();
+        currentEditor.apply();
 
         Intent i = new Intent(v.getContext().getApplicationContext(), AddProductActivity.class);
         i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
