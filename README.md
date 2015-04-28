@@ -10,3 +10,9 @@ it's could be like Amazon dash button , but a bit simpler.
 
 
 ![logo](https://raw.github.com/picaro/WunderButton/master/app/src/main/ic_launcher-web.png)
+
+
+Environment
+
+CI: https://travis-ci.org/picaro/WunderButton
+Check Style 
