@@ -14,5 +14,8 @@ it's could be like Amazon dash button , but a bit simpler.
 
 Environment
 
-CI: https://travis-ci.org/picaro/WunderButton
-Check Style 
+1. CI: https://travis-ci.org/picaro/WunderButton
+2. Check Style 
+3. Metrics  https://mixpanel.com/
+4. Tests https://touchtestlite.soasta.com
+5. proj plan https://opastukhov.aha.io/getting_started
