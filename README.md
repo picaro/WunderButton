@@ -19,3 +19,6 @@ Environment
 3. Metrics  https://mixpanel.com/
 4. Tests https://touchtestlite.soasta.com
 5. proj plan https://opastukhov.aha.io/getting_started
+
+
+[![Coverage Status](https://coveralls.io/repos/picaro/WunderButton/badge.svg)](https://coveralls.io/r/picaro/WunderButton)
