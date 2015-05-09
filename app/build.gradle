@@ -1,4 +1,6 @@
 apply plugin: 'com.android.application'
+apply plugin: 'cobertura'
+apply plugin: 'com.github.kt3k.coveralls'
 
 android {
     signingConfigs {
@@ -43,3 +45,17 @@ dependencies {
 		transitive = true
 	}
 }
+
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath 'net.saliman:gradle-cobertura-plugin:2.0.0' // cobertura plugin
+        classpath 'org.kt3k.gradle.plugin:coveralls-gradle-plugin:2.3.1'
+    }
+}
+
+cobertura.coverageFormats = ['html', 'xml'] // coveralls plugin depends on xml format report
