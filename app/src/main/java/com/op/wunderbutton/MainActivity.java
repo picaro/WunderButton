@@ -31,6 +31,7 @@ import org.apache.http.protocol.HTTP;
 import org.json.JSONObject;
 
 import lombok.extern.java.Log;
+import com.optimizely.Optimizely;
 
 @Log
 public class MainActivity extends ActionBarActivity {
@@ -40,6 +41,9 @@ public class MainActivity extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         log.info("init");
+
+        Optimizely.startOptimizely("AAM7hIkAk9WQeP3RBPSmCMsQRRLzRKzb~2872823291", getApplication());
+
 
         mMixpanel = MixpanelAPI.getInstance(getApplicationContext(), Constants.MIXPANEL_TOKEN);
         setMixPIdentify();
