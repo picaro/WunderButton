@@ -39,5 +39,8 @@ dependencies {
     compile 'com.google.code.gson:gson:2.3'
 
     compile "com.mixpanel.android:mixpanel-android:4.5.3"
+	compile('com.optimizely:optimizely:+@aar') {
+		transitive = true
+	}
 }
 
