@@ -1,10 +1,11 @@
 # WunderButton
 
 [![Coverage Status](https://coveralls.io/repos/picaro/WunderButton/badge.svg)](https://coveralls.io/r/picaro/WunderButton)
-
+[![Build Status](https://travis-ci.org/picaro/WunderButton.svg?branch=master)](https://travis-ci.org/picaro/WunderButton)
 [ ![Codeship Status for intercity/chef-repo](https://codeship.io/projects/b1bda180-cb27-0132-2298-7aebcd9a20f5/status)](https://codeship.io/projects/75672)
 
-[![Build Status](https://travis-ci.org/picaro/WunderButton.svg?branch=master)](https://travis-ci.org/picaro/WunderButton)
+
+
 
 
 Android application, that add functionality to WunderList
