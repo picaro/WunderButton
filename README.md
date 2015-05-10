@@ -22,3 +22,5 @@ Environment
 
 
 [![Coverage Status](https://coveralls.io/repos/picaro/WunderButton/badge.svg)](https://coveralls.io/r/picaro/WunderButton)
+
+[![CodeShip](https://codeship.com/projects/YOUR_PROJECT_UUID/status?branch=master)]
