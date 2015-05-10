@@ -1,0 +1,5 @@
+# Custom config file for houndci (https://houndci.com/)
+	
+ruby:
+	enabled: true
+	
