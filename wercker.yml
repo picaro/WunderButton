@@ -1,7 +1,5 @@
 box: wercker/default
 services:
-    - wercker/mongodb
-    - wercker/rabbitmq
 build:
   steps:
     - npm-install@1.0.5:
