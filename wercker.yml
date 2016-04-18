@@ -1,4 +1,4 @@
-box: wercker/nodejs@0.0.10
+box: wercker/default
 services:
   - wercker/mongodb@0.0.1
   - wercker/rabbitmq
